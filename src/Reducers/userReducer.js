@@ -58,6 +58,34 @@ export const userReducer = (state, action) => {
         currentPage,
         currentPageData: getPageData(state.filteredData, currentPage),
       };
+    case actionConstants.deleteUser:
+      const { userId } = payload;
+      const updatedTotalUserData = state.totalUserData.filter(
+        (user) => user.id !== userId
+      );
+      const updatedFilteredData = state.filteredData.filter(
+        (user) => user.id !== userId
+      );
+
+      const updatedPageData = getPageData(
+        updatedFilteredData,
+        state.currentPage
+      );
+
+      let newCurrentPage =
+        updatedPageData.length === 0
+          ? state.currentPage - 1
+          : state.currentPage;
+      return {
+        ...state,
+        totalUserData: updatedTotalUserData,
+        filteredData: updatedFilteredData,
+        currentPageData:
+          updatedPageData.length === 0
+            ? getPageData(updatedFilteredData, newCurrentPage)
+            : updatedPageData,
+        currentPage : newCurrentPage
+      };
     default:
       return { ...state };
   }
