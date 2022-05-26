@@ -7,7 +7,7 @@ $ git clone https://github.com/arp99/Admin-table-ui.git
 $ cd Admin-table-ui
 $ npm install
 ```
-## Codesandbox Link: https://zmrbcj.sse.codesandbox.io/
+## Codesandbox Link: https://codesandbox.io/embed/admin-ui-zmrbcj?fontsize=14&hidenavigation=1&theme=dark
 
 
 ## **Author**
