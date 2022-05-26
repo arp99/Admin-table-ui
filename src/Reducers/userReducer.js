@@ -1,19 +1,14 @@
 import { actionConstants } from "../Constants/actionConstants";
-import { getFilteredData } from "../Utils/getFilteredData";
-import { getPageData } from "../Utils/getPageData";
 
 export const initialState = {
   totalUserData: [],
-  currentPageData: [],
-  filteredData: [],
   userDataFetchStatus: "idle",
   userDataFetchError: null,
-  currentPage: 1,
+  selectCurrentPage: false,
 };
 
 export const userReducer = (state, action) => {
   const { type, payload } = action;
-  let updatedPageData, updatedTotalUserData, updatedFilteredData;
   switch (type) {
     case actionConstants.loadData:
       const modifiedData = payload.map((user) => ({
@@ -23,8 +18,6 @@ export const userReducer = (state, action) => {
       return {
         ...state,
         totalUserData: modifiedData,
-        filteredData: modifiedData,
-        currentPageData: getPageData(modifiedData, state.currentPage),
         userDataFetchStatus: "fulfilled",
       };
     case actionConstants.loadDataError:
@@ -33,86 +26,55 @@ export const userReducer = (state, action) => {
         userDataFetchStatus: "error",
         userDataFetchError: "error",
       };
-    case actionConstants.filterData:
-      const { filterBy, value } = payload;
-      const filteredData = getFilteredData(state, filterBy, value);
-      return {
-        ...filteredData,
-      };
-    case actionConstants.changePage:
-      const { pageValue } = payload;
-      let currentPage = state.currentPage;
-      if (pageValue === "lastpage") {
-        currentPage = Math.ceil(state.filteredData.length / 10);
-      } else if (pageValue === "firstpage") {
-        currentPage = 1;
-      } else if (pageValue === "next") {
-        currentPage += 1;
-      } else if (pageValue === "back") {
-        currentPage -= 1;
-      } else {
-        currentPage = Number(pageValue);
-      }
-
-      return {
-        ...state,
-        currentPage,
-        currentPageData: getPageData(state.filteredData, currentPage),
-      };
     case actionConstants.deleteUser:
-      const { userId } = payload;
-      updatedTotalUserData = state.totalUserData.filter(
-        (user) => user.id !== userId
-      );
-      updatedFilteredData = state.filteredData.filter(
-        (user) => user.id !== userId
-      );
-
-      updatedPageData = getPageData(updatedFilteredData, state.currentPage);
-
-      let newCurrentPage =
-        updatedPageData.length === 0
-          ? state.currentPage - 1
-          : state.currentPage;
       return {
         ...state,
-        totalUserData: updatedTotalUserData,
-        filteredData: updatedFilteredData,
-        currentPageData:
-          updatedPageData.length === 0
-            ? getPageData(updatedFilteredData, newCurrentPage)
-            : updatedPageData,
-        currentPage: newCurrentPage,
+        totalUserData: state.totalUserData.filter(
+          (user) => user.id !== payload.userId
+        ),
+      };
+
+    case actionConstants.selectUser:
+      return {
+        ...state,
+        totalUserData: state.totalUserData.map((user) => {
+          if (user.id === payload.userId) {
+            return {
+              ...user,
+              selected: !user.selected,
+            };
+          } else {
+            return user;
+          }
+        }),
+      };
+
+    case actionConstants.deleteSelected:
+      return {
+        ...state,
+        totalUserData: state.totalUserData.filter((user) => !user.selected),
+        selectCurrentPage: false,
       };
 
     case actionConstants.selectCurrentPage:
-      const selectedUserIds = {};
-      updatedPageData = state.currentPageData.map((user) => {
-        selectedUserIds[user.id] = !user.selected;
-        return {
-          ...user,
-          selected: !user.selected,
-        };
-      });
-
-      updatedTotalUserData = state.totalUserData.map((user) => {
-        return {
-          ...user,
-          selected: selectedUserIds[user.id] ? true : false,
-        };
-      });
-      updatedFilteredData = state.filteredData.map((user) => {
-        return {
-          ...user,
-          selected: selectedUserIds[user.id] ? true : false,
-        };
-      });
+      const idsToSelect = payload.pageData.reduce(
+        (acc, curr) => ({ ...acc, [curr.id]: true }),
+        {}
+      );
 
       return {
         ...state,
-        totalUserData: updatedTotalUserData,
-        currentPageData: updatedPageData,
-        filteredData: updatedFilteredData,
+        totalUserData: state.totalUserData.map((user) => {
+          if (idsToSelect[user.id]) {
+            return {
+              ...user,
+              selected: !user.selected,
+            };
+          } else {
+            return user;
+          }
+        }),
+        selectCurrentPage: !state.selectCurrentPage,
       };
 
     default:

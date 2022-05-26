@@ -2,15 +2,12 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { initialState, userReducer } from "../Reducers/userReducer";
 import { getUserDataService } from "../Services/getUserDataService";
 import { actionConstants } from "../Constants/actionConstants";
-import { useSearch } from "./searchContext";
 
 const UserDataContext = createContext();
 
 export const UserDataProvider = ({ children }) => {
   const [userData, userDispatch] = useReducer(userReducer, initialState);
 
-  const { searchData } = useSearch();
-  const { userDataFetchStatus } = userData;
   useEffect(() => {
     (async function () {
       try {
@@ -27,15 +24,6 @@ export const UserDataProvider = ({ children }) => {
       }
     })();
   }, []);
-
-  useEffect(() => {
-    if (userDataFetchStatus === "fulfilled") {
-      userDispatch({
-        type: actionConstants.filterData,
-        payload: { filterBy: "SEARCH", value: searchData },
-      });
-    }
-  }, [searchData, userDataFetchStatus]);
 
   return (
     <UserDataContext.Provider value={{ userData, userDispatch }}>

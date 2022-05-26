@@ -1,36 +1,23 @@
-import { getPageData } from "./getPageData";
-
-const filterBySearch = (state, value) => {
-  // if the search is empty, data comes back to original form
+const filterBySearch = (userData, value) => {
   if (value.length === 0) {
-    return {
-      ...state,
-      filteredData: state.totalUserData,
-      currentPageData: getPageData(state.totalUserData, 1),
-      currentPage: 1,
-    };
+    return userData;
   } else {
-    const filteredData = state.totalUserData.filter(
+    const filteredData = userData.filter(
       (user) =>
         user.name.toLowerCase().includes(value.toLowerCase()) ||
         user.email.toLowerCase().includes(value.toLowerCase()) ||
         user.role.toLowerCase().includes(value.toLowerCase())
     );
 
-    return {
-      ...state,
-      filteredData,
-      currentPageData: getPageData(filteredData, 1),
-      currentPage: 1,
-    };
+    return filteredData;
   }
 };
 
-export const getFilteredData = (state, filterBy, value) => {
+export const getFilteredData = (userData, filterBy, value) => {
   switch (filterBy) {
     case "SEARCH":
-      return filterBySearch(state, value);
+      return filterBySearch(userData, value);
     default:
-      return state;
+      return userData;
   }
 };

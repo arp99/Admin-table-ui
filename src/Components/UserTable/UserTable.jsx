@@ -4,12 +4,14 @@ import { useUser } from "../../Context/userDataContext";
 import { UserDetails } from "./UserDetails";
 import { Pagination } from "../Pagination/Pagination";
 import { actionConstants } from "../../Constants/actionConstants";
+import { useFilterData } from "../../Context/filterContext";
 
 export const UserTable = () => {
-  const { userData, userDispatch } = useUser();
-
-  const { currentPageData, filteredData } = userData;
-
+  const {
+    userDispatch,
+    userData: { selectCurrentPage },
+  } = useUser();
+  const { pageData } = useFilterData();
   return (
     <div className="w-full h-full">
       <Header />
@@ -22,8 +24,12 @@ export const UserTable = () => {
                   type="checkbox"
                   name="allData"
                   id="allData"
+                  checked={selectCurrentPage}
                   onChange={() =>
-                    userDispatch({ type: actionConstants.selectCurrentPage })
+                    userDispatch({
+                      type: actionConstants.selectCurrentPage,
+                      payload: { pageData },
+                    })
                   }
                 />
               </div>
@@ -36,7 +42,7 @@ export const UserTable = () => {
             </div>
           </div>
           <div className="table-row-group">
-            {currentPageData.map((user) => (
+            {pageData.map((user) => (
               <UserDetails key={user.id} user={user} />
             ))}
           </div>
