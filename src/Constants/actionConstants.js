@@ -4,4 +4,6 @@ export const actionConstants = {
   changePage: "CHANGE_PAGE",
   filterData: "FILTER_DATA",
   deleteUser: "DELETE_USER",
+  selectCurrentPage : "SELECT_CURRENT_PAGE",
+  selectUser : "SELECT_USER"
 };

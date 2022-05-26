@@ -3,6 +3,7 @@ import { Header } from "../Header/Header";
 import { useUser } from "../../Context/userDataContext";
 import { UserDetails } from "./UserDetails";
 import { Pagination } from "../Pagination/Pagination";
+import { actionConstants } from "../../Constants/actionConstants";
 
 export const UserTable = () => {
   const { userData, userDispatch } = useUser();
@@ -17,7 +18,14 @@ export const UserTable = () => {
           <div className="table-header-group">
             <div className="table-row text-center font-semibold">
               <div className="table-cell w-8 border border-gray-400 py-2">
-                <input type="checkbox" name="allData" id="allData" />
+                <input
+                  type="checkbox"
+                  name="allData"
+                  id="allData"
+                  onChange={() =>
+                    userDispatch({ type: actionConstants.selectCurrentPage })
+                  }
+                />
               </div>
               <div className="table-cell border border-gray-400">Name</div>
               <div className="table-cell border border-gray-400">Email</div>

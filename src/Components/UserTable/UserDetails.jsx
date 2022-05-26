@@ -3,9 +3,9 @@ import { actionConstants } from "../../Constants/actionConstants";
 import { useUser } from "../../Context/userDataContext";
 
 export const UserDetails = ({ user }) => {
-  const { name, email, role, id } = user;
+  const { name, email, role, id, selected } = user;
   const { userDispatch } = useUser();
-
+  console.log(user);
   const userDeleteHandler = () => {
     userDispatch({ type: actionConstants.deleteUser, payload: { userId: id } });
   };
@@ -13,7 +13,7 @@ export const UserDetails = ({ user }) => {
   return (
     <div className="table-row text-center">
       <div className="table-cell w-8 border border-gray-400">
-        <input type="checkbox" name={id} id={id} />
+        <input type="checkbox" name={id} id={id} checked={selected} />
       </div>
       <div className="table-cell border border-gray-400">{name}</div>
       <div className="table-cell border border-gray-400">{email}</div>

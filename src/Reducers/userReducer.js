@@ -13,6 +13,7 @@ export const initialState = {
 
 export const userReducer = (state, action) => {
   const { type, payload } = action;
+  let updatedPageData, updatedTotalUserData, updatedFilteredData;
   switch (type) {
     case actionConstants.loadData:
       const modifiedData = payload.map((user) => ({
@@ -60,17 +61,14 @@ export const userReducer = (state, action) => {
       };
     case actionConstants.deleteUser:
       const { userId } = payload;
-      const updatedTotalUserData = state.totalUserData.filter(
+      updatedTotalUserData = state.totalUserData.filter(
         (user) => user.id !== userId
       );
-      const updatedFilteredData = state.filteredData.filter(
+      updatedFilteredData = state.filteredData.filter(
         (user) => user.id !== userId
       );
 
-      const updatedPageData = getPageData(
-        updatedFilteredData,
-        state.currentPage
-      );
+      updatedPageData = getPageData(updatedFilteredData, state.currentPage);
 
       let newCurrentPage =
         updatedPageData.length === 0
@@ -84,8 +82,39 @@ export const userReducer = (state, action) => {
           updatedPageData.length === 0
             ? getPageData(updatedFilteredData, newCurrentPage)
             : updatedPageData,
-        currentPage : newCurrentPage
+        currentPage: newCurrentPage,
       };
+
+    case actionConstants.selectCurrentPage:
+      const selectedUserIds = {};
+      updatedPageData = state.currentPageData.map((user) => {
+        selectedUserIds[user.id] = !user.selected;
+        return {
+          ...user,
+          selected: !user.selected,
+        };
+      });
+
+      updatedTotalUserData = state.totalUserData.map((user) => {
+        return {
+          ...user,
+          selected: selectedUserIds[user.id] ? true : false,
+        };
+      });
+      updatedFilteredData = state.filteredData.map((user) => {
+        return {
+          ...user,
+          selected: selectedUserIds[user.id] ? true : false,
+        };
+      });
+
+      return {
+        ...state,
+        totalUserData: updatedTotalUserData,
+        currentPageData: updatedPageData,
+        filteredData: updatedFilteredData,
+      };
+
     default:
       return { ...state };
   }
