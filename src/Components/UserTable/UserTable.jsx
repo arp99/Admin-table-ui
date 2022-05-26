@@ -1,8 +1,14 @@
 import React from "react";
 import { Header } from "../Header/Header";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { useUser } from "../../Context/userDataContext";
+import { UserDetails } from "./UserDetails";
+import { Pagination } from "../Pagination/Pagination";
 
 export const UserTable = () => {
+  const { userData, userDispatch } = useUser();
+
+  const { currentPageData } = userData;
+  
   return (
     <div className="w-full h-full">
       <Header />
@@ -22,149 +28,13 @@ export const UserTable = () => {
             </div>
           </div>
           <div className="table-row-group">
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
-            <div className="table-row text-center">
-              <div className="table-cell w-8 border border-gray-400">
-                <input type="checkbox" name="allData" id="allData" />
-              </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                <span className="flex justify-center gap-3 items-center h-full">
-                  <MdEdit size={20} color="#2f98ca" />{" "}
-                  <MdDelete size={20} color="#ef4444" />
-                </span>
-              </div>
-            </div>
+            {currentPageData.map((user) => (
+              <UserDetails key={user.id} user={user} />
+            ))}
           </div>
         </div>
       </div>
+      <Pagination />
     </div>
   );
 };
