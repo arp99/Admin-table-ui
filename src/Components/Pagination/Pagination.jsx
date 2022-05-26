@@ -5,22 +5,36 @@ import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
 } from "react-icons/md";
+import { actionConstants } from "../../Constants/actionConstants";
 
 export const Pagination = () => {
-  const { userData } = useUser();
-  const { filteredData } = userData;
+  const { userData, userDispatch } = useUser();
+  const { filteredData, currentPage } = userData;
 
   const numberOfPages = Math.ceil(filteredData.length / 10);
 
   const pageChangeHandler = (evt) => {
     evt.stopPropagation();
     const target = evt.target;
+    let pageValue = 1;
     if (target.tagName === "svg") {
-      console.log(target.parentNode.dataset.page);
+      pageValue = target.parentNode.dataset.page;
+      userDispatch({
+        type: actionConstants.changePage,
+        payload: { pageValue },
+      });
     } else if (target.tagName === "path") {
-      console.log(target.parentNode.parentNode.dataset.page);
-    } else {
-      console.log(target.dataset.page);
+      pageValue = target.parentNode.parentNode.dataset.page;
+      userDispatch({
+        type: actionConstants.changePage,
+        payload: { pageValue },
+      });
+    } else if (target.tagName === "BUTTON") {
+      pageValue = target.dataset.page;
+      userDispatch({
+        type: actionConstants.changePage,
+        payload: { pageValue },
+      });
     }
   };
 
@@ -36,8 +50,15 @@ export const Pagination = () => {
         <MdFirstPage size={20} height="100%" style={{ margin: "0 auto" }} />
       </button>
       <button
-        className="border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl"
+        className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
+          currentPage === 1 && "cursor-not-allowed"
+        }`}
         data-page="back"
+        onClick={(evt) => {
+          if (currentPage === 1) {
+            evt.stopPropagation();
+          }
+        }}
       >
         <MdKeyboardArrowLeft size={20} style={{ margin: "0 auto" }} />
       </button>
@@ -46,7 +67,9 @@ export const Pagination = () => {
         .split("")
         .map((item, index) => (
           <button
-            className="border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl"
+            className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
+              currentPage === index + 1 ? "bg-gray-400 text-white" : ""
+            }`}
             key={Math.random() + index}
             data-page={index + 1}
           >
@@ -54,8 +77,15 @@ export const Pagination = () => {
           </button>
         ))}
       <button
-        className="border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl"
+        className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
+          currentPage === numberOfPages && "cursor-not-allowed"
+        }`}
         data-page="next"
+        onClick={(evt) => {
+          if (currentPage === numberOfPages) {
+            evt.stopPropagation();
+          }
+        }}
       >
         <MdKeyboardArrowRight size={20} style={{ margin: "0 auto" }} />
       </button>

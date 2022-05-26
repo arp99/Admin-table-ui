@@ -1,4 +1,6 @@
 import { actionConstants } from "../Constants/actionConstants";
+import { getFilteredData } from "../Utils/getFilteredData";
+import { getPageData } from "../Utils/getPageData";
 
 export const initialState = {
   totalUserData: [],
@@ -21,7 +23,7 @@ export const userReducer = (state, action) => {
         ...state,
         totalUserData: modifiedData,
         filteredData: modifiedData,
-        currentPageData: modifiedData.slice(0, 10),
+        currentPageData: getPageData(modifiedData, state.currentPage),
         userDataFetchStatus: "fulfilled",
       };
     case actionConstants.loadDataError:
@@ -29,6 +31,32 @@ export const userReducer = (state, action) => {
         ...state,
         userDataFetchStatus: "error",
         userDataFetchError: "error",
+      };
+    case actionConstants.filterData:
+      const { filterBy, value } = payload;
+      const filteredData = getFilteredData(state, filterBy, value);
+      return {
+        ...filteredData,
+      };
+    case actionConstants.changePage:
+      const { pageValue } = payload;
+      let currentPage = state.currentPage;
+      if (pageValue === "lastpage") {
+        currentPage = Math.ceil(state.filteredData.length / 10);
+      } else if (pageValue === "firstpage") {
+        currentPage = 1;
+      } else if (pageValue === "next") {
+        currentPage += 1;
+      } else if (pageValue === "back") {
+        currentPage -= 1;
+      } else {
+        currentPage = Number(pageValue);
+      }
+
+      return {
+        ...state,
+        currentPage,
+        currentPageData: getPageData(state.filteredData, currentPage),
       };
     default:
       return { ...state };

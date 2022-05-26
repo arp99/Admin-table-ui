@@ -10,8 +10,7 @@ export const UserDataProvider = ({ children }) => {
   const [userData, userDispatch] = useReducer(userReducer, initialState);
 
   const { searchData } = useSearch();
-  console.log({ searchData });
-
+  const { userDataFetchStatus } = userData;
   useEffect(() => {
     (async function () {
       try {
@@ -30,8 +29,13 @@ export const UserDataProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Get filtered data");
-  }, [searchData]);
+    if (userDataFetchStatus === "fulfilled") {
+      userDispatch({
+        type: actionConstants.filterData,
+        payload: { filterBy: "SEARCH", value: searchData },
+      });
+    }
+  }, [searchData, userDataFetchStatus]);
 
   return (
     <UserDataContext.Provider value={{ userData, userDispatch }}>

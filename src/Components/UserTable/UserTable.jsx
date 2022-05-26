@@ -7,8 +7,8 @@ import { Pagination } from "../Pagination/Pagination";
 export const UserTable = () => {
   const { userData, userDispatch } = useUser();
 
-  const { currentPageData } = userData;
-  
+  const { currentPageData, filteredData } = userData;
+
   return (
     <div className="w-full h-full">
       <Header />
