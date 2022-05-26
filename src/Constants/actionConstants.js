@@ -5,4 +5,5 @@ export const actionConstants = {
   selectCurrentPage: "SELECT_CURRENT_PAGE",
   selectUser: "SELECT_USER",
   deleteSelected: "DELETE_SELECTED",
+  editUser: "EDIT_USER",
 };

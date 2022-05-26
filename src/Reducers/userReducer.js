@@ -77,6 +77,24 @@ export const userReducer = (state, action) => {
         selectCurrentPage: !state.selectCurrentPage,
       };
 
+    case actionConstants.editUser:
+      const { name, email, role, id } = payload;
+
+      return {
+        ...state,
+        totalUserData: state.totalUserData.map((user) => {
+          if (user.id === id) {
+            return {
+              ...user,
+              name,
+              email,
+              role,
+            };
+          } else {
+            return user;
+          }
+        }),
+      };
     default:
       return { ...state };
   }
