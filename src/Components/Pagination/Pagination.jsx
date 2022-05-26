@@ -1,15 +1,14 @@
-import { useUser } from "../../Context/userDataContext";
+import { useFilterData } from "../../Context/filterContext";
 import {
   MdFirstPage,
   MdLastPage,
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
 } from "react-icons/md";
-import { actionConstants } from "../../Constants/actionConstants";
+import { getCurrentPage } from "../../Utils/getCurrentPage";
 
 export const Pagination = () => {
-  const { userData, userDispatch } = useUser();
-  const { filteredData, currentPage } = userData;
+  const { filteredData, currentPage, setCurrentPage } = useFilterData();
 
   const numberOfPages = Math.ceil(filteredData.length / 10);
 
@@ -19,22 +18,13 @@ export const Pagination = () => {
     let pageValue = 1;
     if (target.tagName === "svg") {
       pageValue = target.parentNode.dataset.page;
-      userDispatch({
-        type: actionConstants.changePage,
-        payload: { pageValue },
-      });
+      setCurrentPage(getCurrentPage(pageValue, numberOfPages, currentPage));
     } else if (target.tagName === "path") {
       pageValue = target.parentNode.parentNode.dataset.page;
-      userDispatch({
-        type: actionConstants.changePage,
-        payload: { pageValue },
-      });
+      setCurrentPage(getCurrentPage(pageValue, numberOfPages, currentPage));
     } else if (target.tagName === "BUTTON") {
       pageValue = target.dataset.page;
-      userDispatch({
-        type: actionConstants.changePage,
-        payload: { pageValue },
-      });
+      setCurrentPage(getCurrentPage(pageValue, numberOfPages, currentPage));
     }
   };
 

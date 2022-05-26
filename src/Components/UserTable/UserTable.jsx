@@ -3,12 +3,15 @@ import { Header } from "../Header/Header";
 import { useUser } from "../../Context/userDataContext";
 import { UserDetails } from "./UserDetails";
 import { Pagination } from "../Pagination/Pagination";
+import { actionConstants } from "../../Constants/actionConstants";
+import { useFilterData } from "../../Context/filterContext";
 
 export const UserTable = () => {
-  const { userData, userDispatch } = useUser();
-
-  const { currentPageData, filteredData } = userData;
-
+  const {
+    userDispatch,
+    userData: { selectCurrentPage },
+  } = useUser();
+  const { pageData } = useFilterData();
   return (
     <div className="w-full h-full">
       <Header />
@@ -17,7 +20,18 @@ export const UserTable = () => {
           <div className="table-header-group">
             <div className="table-row text-center font-semibold">
               <div className="table-cell w-8 border border-gray-400 py-2">
-                <input type="checkbox" name="allData" id="allData" />
+                <input
+                  type="checkbox"
+                  name="allData"
+                  id="allData"
+                  checked={selectCurrentPage}
+                  onChange={() =>
+                    userDispatch({
+                      type: actionConstants.selectCurrentPage,
+                      payload: { pageData },
+                    })
+                  }
+                />
               </div>
               <div className="table-cell border border-gray-400">Name</div>
               <div className="table-cell border border-gray-400">Email</div>
@@ -28,7 +42,7 @@ export const UserTable = () => {
             </div>
           </div>
           <div className="table-row-group">
-            {currentPageData.map((user) => (
+            {pageData.map((user) => (
               <UserDetails key={user.id} user={user} />
             ))}
           </div>
