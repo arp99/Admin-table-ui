@@ -1,9 +1,12 @@
-import './App.css';
+import "./App.css";
+import { UserTable } from "./Components";
 
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <div className="App">
+      <main className="bg-white w-4/5 h-4/5 mx-auto p-2">
+        <UserTable />
+      </main>
+    </div>
+  );
 }
