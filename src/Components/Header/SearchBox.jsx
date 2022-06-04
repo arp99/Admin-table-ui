@@ -15,7 +15,7 @@ export const SearchBox = () => {
     }, 1000);
   };
   return (
-    <div className="w-full h-full bg-lightGray rounded-2xl px-2 flex items-center gap-3 text-lightblue transition-shadow focus-within:shadow-hover">
+    <div className="w-full h-full bg-lightGray rounded-2xl px-2 flex items-center gap-3 text-lightblue transition-all focus-within:shadow-hover">
       <FiSearch size={30} />
       <input
         type="text"
@@ -24,14 +24,16 @@ export const SearchBox = () => {
         value={searchValue}
         onChange={handleSearch}
       />
-      <FiX
-        size={30}
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          setSearchValue("");
-          setSearchData("");
-        }}
-      />
+      {searchValue && (
+        <FiX
+          size={30}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setSearchValue("");
+            setSearchData("");
+          }}
+        />
+      )}
     </div>
   );
 };

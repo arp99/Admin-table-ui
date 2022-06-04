@@ -17,7 +17,7 @@ export const UserTable = ({ headers }) => {
 
   return (
     <div className="w-full h-full text-base">
-      <Header />
+      <Header filteredData={filteredData} />
       {totalUserData.length > 0 && (
         <div className="w-full h-4/5 mt-4">
           <div className="w-full h-full ">

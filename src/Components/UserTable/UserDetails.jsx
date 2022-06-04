@@ -21,7 +21,7 @@ export const UserDetails = ({ user, headers }) => {
   return (
     <div
       className={`text-center transition-colors h-12 flex items-center justify-between w-full border-0 border-b-2 border-lightGray last:border-none ${
-        selected && "bg-lightGray"
+        selected && "bg-gray-200"
       }`}
     >
       <div className="w-8">
