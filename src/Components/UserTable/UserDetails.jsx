@@ -41,19 +41,17 @@ export const UserDetails = ({ user, headers }) => {
       ))}
 
       <div className="w-1/5 flex justify-center gap-5 items-center group cursor-pointer">
-        <div className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100">
-          <RiDeleteBin6Line
-            size={15}
-            style={{ cursor: "pointer" }}
-            onClick={userDeleteHandler}
-          />
+        <div
+          className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
+          onClick={userDeleteHandler}
+        >
+          <RiDeleteBin6Line size={15} style={{ cursor: "pointer" }} />
         </div>
-        <div className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100">
-          <MdEdit
-            size={15}
-            style={{ cursor: "pointer" }}
-            onClick={() => setShowEditModal(true)}
-          />
+        <div
+          className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
+          onClick={() => setShowEditModal(true)}
+        >
+          <MdEdit size={15} style={{ cursor: "pointer" }} />
         </div>
       </div>
       {showEditModal && (

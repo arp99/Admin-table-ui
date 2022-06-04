@@ -15,7 +15,7 @@ export const EditModal = ({ user, setShowEditModal }) => {
       onClick={() => setShowEditModal(false)}
     >
       <div
-        className="w-72 bg-white shadow-lg border border-gray-400 p-2"
+        className="w-80 bg-white shadow-lg border border-gray-400 p-2 rounded-xl"
         onClick={(evt) => evt.stopPropagation()}
       >
         <h2>Edit Details</h2>
@@ -24,7 +24,7 @@ export const EditModal = ({ user, setShowEditModal }) => {
           <input
             type="text"
             name="name"
-            className="border border-gray-400 w-full outline-none p-1"
+            className="border border-gray-400 w-full outline-none p-1 rounded-xl"
             onChange={(evt) => setName(evt.target.value)}
             value={name}
           />
@@ -34,7 +34,7 @@ export const EditModal = ({ user, setShowEditModal }) => {
           <input
             type="text"
             name="email"
-            className="border border-gray-400 w-full outline-none p-1"
+            className="border border-gray-400 w-full outline-none p-1 rounded-xl"
             onChange={(evt) => setEmail(evt.target.value)}
             value={email}
           />
@@ -44,14 +44,14 @@ export const EditModal = ({ user, setShowEditModal }) => {
           <input
             type="text"
             name="role"
-            className="border border-gray-400 w-full outline-none p-1"
+            className="border border-gray-400 w-full outline-none p-1 rounded-xl"
             onChange={(evt) => setRole(evt.target.value)}
             value={role}
           />
         </div>
         <div className="w-full flex justify-between gap-3 mt-2">
           <button
-            className="bg-gray-600 text-white px-2 py-1 rounded-sm"
+            className="bg-lightText text-white px-4 py-1 rounded-xl"
             onClick={() => {
               userDispatch({
                 type: actionConstants.editUser,
@@ -63,7 +63,7 @@ export const EditModal = ({ user, setShowEditModal }) => {
             Update
           </button>
           <button
-            className="bg-gray-600 text-white px-2 py-1 rounded-sm"
+            className="bg-lightText text-white px-4 py-1 rounded-xl"
             onClick={() => setShowEditModal(false)}
           >
             Cancel

@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <main className="bg-white w-full md:w-[90%] lg:w-[60%] h-full pt-5 mx-auto">
+      <main className="bg-white w-full md:w-[90%] lg:w-[70%] h-full pt-5 px-2 mx-auto">
         <UserTable headers={headers} />
       </main>
     </div>

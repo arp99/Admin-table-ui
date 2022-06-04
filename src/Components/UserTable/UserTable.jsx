@@ -12,8 +12,8 @@ export const UserTable = ({ headers }) => {
     userData: { selectCurrentPage, totalUserData },
   } = useUser();
 
-  const { filteredData, currentPage, setCurrentPage } = useFilterData();
-  const { pageData } = useFilterData();
+  const { filteredData, currentPage, setCurrentPage, pageData } =
+    useFilterData();
 
   return (
     <div className="w-full h-full text-base">
@@ -48,6 +48,9 @@ export const UserTable = ({ headers }) => {
             </div>
 
             <div className="w-full h-full flex flex-col">
+              {pageData.length === 0 && (
+                <h2 className="text-center text-lightText">No records found</h2>
+              )}
               {pageData.map((user) => (
                 <UserDetails key={user.id} user={user} headers={headers} />
               ))}
@@ -55,12 +58,13 @@ export const UserTable = ({ headers }) => {
           </div>
         </div>
       )}
-
-      <Pagination
-        filteredData={filteredData}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {filteredData.length > 0 && (
+        <Pagination
+          filteredData={filteredData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };
