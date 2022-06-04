@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearch } from "../../Context/searchContext";
+import { FiSearch, FiX } from "react-icons/fi";
 
 export const SearchBox = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -14,14 +15,23 @@ export const SearchBox = () => {
     }, 1000);
   };
   return (
-    <>
+    <div className="w-full h-full bg-lightGray rounded-2xl px-2 flex items-center gap-3 text-lightblue transition-shadow focus-within:shadow-hover">
+      <FiSearch size={30} />
       <input
         type="text"
         placeholder="Search by name, email or role"
-        className="w-64 border-2 border-gray-400 rounded-sm px-1 py-2 placeholder:text-gray-400"
+        className="w-full h-full bg-inherit outline-none rounded-2xl tracking-wider text-lightText placeholder:text-gray-400"
         value={searchValue}
         onChange={handleSearch}
       />
-    </>
+      <FiX
+        size={30}
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setSearchValue("");
+          setSearchData("");
+        }}
+      />
+    </div>
   );
 };

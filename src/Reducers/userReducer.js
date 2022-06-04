@@ -68,7 +68,27 @@ export const userReducer = (state, action) => {
           if (idsToSelect[user.id]) {
             return {
               ...user,
-              selected: !user.selected,
+              selected: true, // toggling
+            };
+          } else {
+            return user;
+          }
+        }),
+        selectCurrentPage: !state.selectCurrentPage,
+      };
+
+      case actionConstants.deselectCurrentPage : 
+        const idsToSelect1 = payload.pageData.reduce(
+        (acc, curr) => ({ ...acc, [curr.id]: true }),
+        {}
+      );
+      return {
+        ...state,
+        totalUserData: state.totalUserData.map((user) => {
+          if (idsToSelect1[user.id]) {
+            return {
+              ...user,
+              selected: false, // toggling
             };
           } else {
             return user;

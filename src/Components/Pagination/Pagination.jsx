@@ -1,4 +1,3 @@
-import { useFilterData } from "../../Context/filterContext";
 import {
   MdFirstPage,
   MdLastPage,
@@ -7,8 +6,7 @@ import {
 } from "react-icons/md";
 import { getCurrentPage } from "../../Utils/getCurrentPage";
 
-export const Pagination = () => {
-  const { filteredData, currentPage, setCurrentPage } = useFilterData();
+export const Pagination = ({ filteredData, currentPage, setCurrentPage }) => {
 
   const numberOfPages = Math.ceil(filteredData.length / 10);
 
@@ -30,17 +28,17 @@ export const Pagination = () => {
 
   return (
     <div
-      className="w-full h-1/5 flex justify-center items-center gap-2"
+      className="w-max h-9 rounded-2xl px-4 ml-auto flex justify-center items-center gap-4 bg-lightGray"
       onClick={(evt) => pageChangeHandler(evt)}
     >
       <button
-        className="border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl"
+        className="rounded-full hover:shadow-xl"
         data-page="firstpage"
       >
-        <MdFirstPage size={20} height="100%" style={{ margin: "0 auto" }} />
+        <MdFirstPage size={16} height="100%" style={{ margin: "0 auto" }} />
       </button>
       <button
-        className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
+        className={`rounded-full hover:shadow-xl ${
           currentPage === 1 && "cursor-not-allowed"
         }`}
         data-page="back"
@@ -50,15 +48,15 @@ export const Pagination = () => {
           }
         }}
       >
-        <MdKeyboardArrowLeft size={20} style={{ margin: "0 auto" }} />
+        <MdKeyboardArrowLeft size={16} style={{ margin: "0 auto" }} />
       </button>
       {"0"
         .repeat(numberOfPages)
         .split("")
         .map((item, index) => (
           <button
-            className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
-              currentPage === index + 1 ? "bg-gray-400 text-white" : ""
+            className={`rounded-full hover:shadow-xl text-base ${
+              currentPage === index + 1 ? "text-lightblue font-semibold" : ""
             }`}
             key={Math.random() + index}
             data-page={index + 1}
@@ -67,7 +65,7 @@ export const Pagination = () => {
           </button>
         ))}
       <button
-        className={`border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl ${
+        className={`rounded-full hover:shadow-xl ${
           currentPage === numberOfPages && "cursor-not-allowed"
         }`}
         data-page="next"
@@ -77,13 +75,13 @@ export const Pagination = () => {
           }
         }}
       >
-        <MdKeyboardArrowRight size={20} style={{ margin: "0 auto" }} />
+        <MdKeyboardArrowRight size={16} style={{ margin: "0 auto" }} />
       </button>
       <button
-        className="border border-gray-400 rounded-full w-10 h-10 hover:shadow-xl"
+        className="rounded-full hover:shadow-xl"
         data-page="lastpage"
       >
-        <MdLastPage size={20} style={{ margin: "0 auto" }} />
+        <MdLastPage size={16} style={{ margin: "0 auto" }} />
       </button>
     </div>
   );

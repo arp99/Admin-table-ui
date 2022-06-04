@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { actionConstants } from "../../Constants/actionConstants";
 import { useUser } from "../../Context/userDataContext";
 import { EditModal } from "../EditModal/EditModal";
 
-export const UserDetails = ({ user }) => {
+export const UserDetails = ({ user, headers }) => {
   const [showEditModal, setShowEditModal] = useState(false);
-  const { name, email, role, id, selected } = user;
+  const { id, selected } = user;
   const { userDispatch } = useUser();
 
   const userDeleteHandler = () => {
@@ -19,37 +20,41 @@ export const UserDetails = ({ user }) => {
 
   return (
     <div
-      className={`table-row text-center transition-colors ${
-        selected && "bg-gray-300"
+      className={`text-center transition-colors h-12 flex items-center justify-between w-full border-0 border-b-2 border-lightGray last:border-none ${
+        selected && "bg-lightGray"
       }`}
     >
-      <div className="table-cell w-8 border border-gray-400">
+      <div className="w-8">
         <input
           type="checkbox"
+          className="w-5 h-4 accent-lightblue"
           name={id}
           id={id}
           checked={selected}
           onChange={selectUserHandler}
         />
       </div>
-      <div className="table-cell border border-gray-400">{name}</div>
-      <div className="table-cell border border-gray-400">{email}</div>
-      <div className="table-cell border border-gray-400">{role}</div>
-      <div className="table-cell border w-32 border-gray-400">
-        <span className="flex justify-center gap-3 items-center h-full">
-          <MdEdit
-            size={20}
-            color="#2f98ca"
-            style={{ cursor: "pointer" }}
-            onClick={() => setShowEditModal(true)}
-          />{" "}
-          <MdDelete
-            size={20}
-            color="#ef4444"
+      {headers.map((header, index) => (
+        <div className="w-1/4" key={header + index + Math.random()}>
+          {user[header.title]}
+        </div>
+      ))}
+
+      <div className="w-1/5 flex justify-center gap-5 items-center group cursor-pointer">
+        <div className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100">
+          <RiDeleteBin6Line
+            size={15}
             style={{ cursor: "pointer" }}
             onClick={userDeleteHandler}
           />
-        </span>
+        </div>
+        <div className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100">
+          <MdEdit
+            size={15}
+            style={{ cursor: "pointer" }}
+            onClick={() => setShowEditModal(true)}
+          />
+        </div>
       </div>
       {showEditModal && (
         <EditModal user={user} setShowEditModal={setShowEditModal} />

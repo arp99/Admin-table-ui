@@ -6,49 +6,61 @@ import { Pagination } from "../Pagination/Pagination";
 import { actionConstants } from "../../Constants/actionConstants";
 import { useFilterData } from "../../Context/filterContext";
 
-export const UserTable = () => {
+export const UserTable = ({ headers }) => {
   const {
     userDispatch,
-    userData: { selectCurrentPage },
+    userData: { selectCurrentPage, totalUserData },
   } = useUser();
+
+  const { filteredData, currentPage, setCurrentPage } = useFilterData();
   const { pageData } = useFilterData();
+
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full text-base">
       <Header />
-      <div className="w-full h-4/5">
-        <div className="w-full h-full table border-collapse">
-          <div className="table-header-group">
-            <div className="table-row text-center font-semibold">
-              <div className="table-cell w-8 border border-gray-400 py-2">
+      {totalUserData.length > 0 && (
+        <div className="w-full h-4/5 mt-4">
+          <div className="w-full h-full ">
+            <div className="text-center flex justify-between w-full font-bold py-2 border-0 border-b-2 border-lightGray">
+              <div className="w-8">
                 <input
                   type="checkbox"
                   name="allData"
                   id="allData"
+                  className="w-5 h-4 accent-lightblue"
                   checked={selectCurrentPage}
                   onChange={() =>
                     userDispatch({
-                      type: actionConstants.selectCurrentPage,
+                      type: selectCurrentPage
+                        ? actionConstants.deselectCurrentPage
+                        : actionConstants.selectCurrentPage,
                       payload: { pageData },
                     })
                   }
                 />
               </div>
-              <div className="table-cell border border-gray-400">Name</div>
-              <div className="table-cell border border-gray-400">Email</div>
-              <div className="table-cell border border-gray-400">Role</div>
-              <div className="table-cell border w-32 border-gray-400">
-                Actions
-              </div>
+              {headers.map((header, index) => (
+                <div className="w-1/4" key={header + index + Math.random()}>
+                  {header.title[0].toUpperCase() + header.title.slice(1)}
+                </div>
+              ))}
+              <div className=" w-1/5">Actions</div>
+            </div>
+
+            <div className="w-full h-full flex flex-col">
+              {pageData.map((user) => (
+                <UserDetails key={user.id} user={user} headers={headers} />
+              ))}
             </div>
           </div>
-          <div className="table-row-group">
-            {pageData.map((user) => (
-              <UserDetails key={user.id} user={user} />
-            ))}
-          </div>
         </div>
-      </div>
-      <Pagination />
+      )}
+
+      <Pagination
+        filteredData={filteredData}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
