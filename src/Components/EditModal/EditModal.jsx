@@ -11,7 +11,7 @@ export const EditModal = ({ user, setShowEditModal }) => {
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-screen flex justify-center items-center backdrop-blur-sm"
+      className="fixed top-0 left-0 w-full h-screen flex justify-center items-center backdrop-blur-sm z-[1]"
       onClick={() => setShowEditModal(false)}
     >
       <div

@@ -4,7 +4,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { actionConstants } from "../../Constants/actionConstants";
 import { useUser } from "../../Context/userDataContext";
 import { EditModal } from "../EditModal/EditModal";
-import { BsCheck2 } from "react-icons/bs";
 import { Checkbox } from "../Checkbox/Checkbox";
 
 export const UserDetails = ({ user, headers }) => {
