@@ -20,8 +20,8 @@ export const UserDetails = ({ user, headers }) => {
 
   return (
     <div
-      className={`text-center transition-colors h-12 flex items-center justify-between w-full border-0 border-b-2 border-lightGray last:border-none ${
-        selected && "bg-gray-200"
+      className={`text-center transition-colors h-12 flex items-center justify-between w-full border-0 border-b-2 border-lightGray dark:border-blueGray last:border-none ${
+        selected && "bg-gray-200 dark:bg-[#3b476a]"
       }`}
     >
       <div className="w-8">
@@ -42,13 +42,13 @@ export const UserDetails = ({ user, headers }) => {
 
       <div className="w-1/5 flex justify-center gap-5 items-center group cursor-pointer">
         <div
-          className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
+          className="bg-lightGray dark:bg-blueGray dark:text-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
           onClick={userDeleteHandler}
         >
           <RiDeleteBin6Line size={15} style={{ cursor: "pointer" }} />
         </div>
         <div
-          className="bg-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
+          className="bg-lightGray dark:bg-blueGray dark:text-lightGray p-2 rounded-full text-lightText transition-opacity opacity-0 group-hover:opacity-100"
           onClick={() => setShowEditModal(true)}
         >
           <MdEdit size={15} style={{ cursor: "pointer" }} />

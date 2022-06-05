@@ -15,12 +15,12 @@ export const SearchBox = () => {
     }, 1000);
   };
   return (
-    <div className="w-full h-full bg-lightGray rounded-2xl px-2 flex items-center gap-3 text-lightblue transition-all focus-within:shadow-hover">
+    <div className="w-full h-full bg-lightGray dark:bg-blueGray rounded-2xl px-2 flex items-center gap-3 text-lightblue transition-all focus-within:shadow-hover">
       <FiSearch size={30} />
       <input
         type="text"
         placeholder="Search by name, email or role"
-        className="w-full h-full bg-inherit outline-none rounded-2xl tracking-wider text-lightText placeholder:text-gray-400"
+        className="w-full h-full bg-inherit outline-none rounded-2xl tracking-wider text-lightText dark:text-white placeholder:text-gray-400"
         value={searchValue}
         onChange={handleSearch}
       />

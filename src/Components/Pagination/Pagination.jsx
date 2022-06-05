@@ -28,7 +28,7 @@ export const Pagination = ({ filteredData, currentPage, setCurrentPage }) => {
 
   return (
     <div
-      className="w-max h-9 rounded-2xl px-4 ml-auto flex justify-center items-center gap-4 bg-lightGray"
+      className="w-max h-9 rounded-2xl px-4 flex justify-center items-center gap-4 bg-lightGray dark:bg-blueGray"
       onClick={(evt) => pageChangeHandler(evt)}
     >
       <button

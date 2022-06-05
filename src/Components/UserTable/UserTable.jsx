@@ -1,5 +1,6 @@
 import React from "react";
 import { Header } from "../Header/Header";
+import { ThemeToggler } from "../ThemeToggler/ThemeToggler";
 import { useUser } from "../../Context/userDataContext";
 import { UserDetails } from "./UserDetails";
 import { Pagination } from "../Pagination/Pagination";
@@ -16,12 +17,12 @@ export const UserTable = ({ headers }) => {
     useFilterData();
 
   return (
-    <div className="w-full h-full text-base">
+    <div className="w-full h-full text-xs sm:text-base">
       <Header filteredData={filteredData} />
       {totalUserData.length > 0 && (
         <div className="w-full h-4/5 mt-4">
           <div className="w-full h-full ">
-            <div className="text-center flex justify-between w-full font-bold py-2 border-0 border-b-2 border-lightGray">
+            <div className="text-center flex justify-between w-full font-bold py-2 border-0 border-b-2 border-lightGray dark:border-blueGray">
               <div className="w-8">
                 <input
                   type="checkbox"
@@ -49,7 +50,7 @@ export const UserTable = ({ headers }) => {
 
             <div className="w-full h-full flex flex-col">
               {pageData.length === 0 && (
-                <h2 className="text-center text-lightText">No records found</h2>
+                <h2 className="text-center text-lightText dark:text-white">No records found</h2>
               )}
               {pageData.map((user) => (
                 <UserDetails key={user.id} user={user} headers={headers} />
@@ -58,6 +59,8 @@ export const UserTable = ({ headers }) => {
           </div>
         </div>
       )}
+      <div className="w-max ml-auto flex gap-3">
+      <ThemeToggler />
       {filteredData.length > 0 && (
         <Pagination
           filteredData={filteredData}
@@ -65,6 +68,7 @@ export const UserTable = ({ headers }) => {
           setCurrentPage={setCurrentPage}
         />
       )}
+      </div>
     </div>
   );
 };
