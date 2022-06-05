@@ -6,6 +6,7 @@ import { UserDetails } from "./UserDetails";
 import { Pagination } from "../Pagination/Pagination";
 import { actionConstants } from "../../Constants/actionConstants";
 import { useFilterData } from "../../Context/filterContext";
+import { Checkbox } from "../Checkbox/Checkbox";
 
 export const UserTable = ({ headers }) => {
   const {
@@ -16,6 +17,15 @@ export const UserTable = ({ headers }) => {
   const { filteredData, currentPage, setCurrentPage, pageData } =
     useFilterData();
 
+  const selectPageHandler = () => {
+    userDispatch({
+      type: selectCurrentPage
+        ? actionConstants.deselectCurrentPage
+        : actionConstants.selectCurrentPage,
+      payload: { pageData },
+    });
+  };
+
   return (
     <div className="w-full h-full text-xs sm:text-base">
       <Header filteredData={filteredData} />
@@ -23,21 +33,12 @@ export const UserTable = ({ headers }) => {
         <div className="w-full h-4/5 mt-4">
           <div className="w-full h-full ">
             <div className="text-center flex justify-between w-full font-bold py-2 border-0 border-b-2 border-lightGray dark:border-blueGray">
-              <div className="w-8">
-                <input
-                  type="checkbox"
-                  name="allData"
-                  id="allData"
-                  className="w-5 h-4 accent-lightblue"
-                  checked={selectCurrentPage}
-                  onChange={() =>
-                    userDispatch({
-                      type: selectCurrentPage
-                        ? actionConstants.deselectCurrentPage
-                        : actionConstants.selectCurrentPage,
-                      payload: { pageData },
-                    })
-                  }
+              <div className="w-8 relative">
+                <Checkbox
+                  id={"allData"}
+                  name={"allData"}
+                  selected={selectCurrentPage}
+                  changeHandler={selectPageHandler}
                 />
               </div>
               {headers.map((header, index) => (
@@ -50,7 +51,9 @@ export const UserTable = ({ headers }) => {
 
             <div className="w-full h-full flex flex-col">
               {pageData.length === 0 && (
-                <h2 className="text-center text-lightText dark:text-white">No records found</h2>
+                <h2 className="text-center text-lightText dark:text-white">
+                  No records found
+                </h2>
               )}
               {pageData.map((user) => (
                 <UserDetails key={user.id} user={user} headers={headers} />
@@ -60,14 +63,14 @@ export const UserTable = ({ headers }) => {
         </div>
       )}
       <div className="w-max ml-auto flex gap-3">
-      <ThemeToggler />
-      {filteredData.length > 0 && (
-        <Pagination
-          filteredData={filteredData}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
+        <ThemeToggler />
+        {filteredData.length > 0 && (
+          <Pagination
+            filteredData={filteredData}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );

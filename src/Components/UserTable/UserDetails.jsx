@@ -4,6 +4,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { actionConstants } from "../../Constants/actionConstants";
 import { useUser } from "../../Context/userDataContext";
 import { EditModal } from "../EditModal/EditModal";
+import { BsCheck2 } from "react-icons/bs";
+import { Checkbox } from "../Checkbox/Checkbox";
 
 export const UserDetails = ({ user, headers }) => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -24,14 +26,12 @@ export const UserDetails = ({ user, headers }) => {
         selected && "bg-gray-200 dark:bg-[#3b476a]"
       }`}
     >
-      <div className="w-8">
-        <input
-          type="checkbox"
-          className="w-5 h-4 accent-lightblue"
-          name={id}
+      <div className="w-8 relative">
+        <Checkbox
           id={id}
-          checked={selected}
-          onChange={selectUserHandler}
+          name={id}
+          selected={selected}
+          changeHandler={selectUserHandler}
         />
       </div>
       {headers.map((header, index) => (
